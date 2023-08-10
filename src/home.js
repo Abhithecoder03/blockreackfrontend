@@ -35,7 +35,7 @@ const Home = () => {
     
     return ( 
         <div className="home">
-            <Headers></Headers>
+            <Headers className="header"></Headers>
             <nav className="nav">
                  <a className="cat1"  onClick={()=>{setfilter(blogs)}}>All</a>
                 <a className="cat1"  onClick={()=>{categories(blogs,"Abhi")}}>Author1</a>

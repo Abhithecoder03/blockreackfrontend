@@ -7,11 +7,28 @@ import BlogDetails from './BlogDetails';
 import Updateblog from './updateblog';
 import Headers from './headers';
 
+import { Auth0Provider } from '@auth0/auth0-react'
+
+import { useAuth0 } from "@auth0/auth0-react";
+
+
+
+
 function App() {
   
-     
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  
+
   
   return (
+    <Auth0Provider
+    domain="dev-zjeg3rqf3l0xjxe2.us.auth0.com"
+    clientId="SqFJwIdWpNrFC5TL7DaP5YNDj2gpsiNc"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
     <Router>
     <div className="App">
     <Navbar></Navbar>
@@ -31,6 +48,7 @@ function App() {
     </div>
     </div>
     </Router>
+    </Auth0Provider>
   );
 }
 

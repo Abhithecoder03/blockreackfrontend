@@ -15,13 +15,16 @@ import MenuItem from '@mui/material/MenuItem';
 import { motion } from 'framer-motion';
 //imge
 import logo from './logo5.png'
+
+import { useAuth0 } from "@auth0/auth0-react";
+
 const pages = [
   { name: 'Home', link: '/' },
   { name: 'About', link: '/about' },
   { name: 'New Blog', link: '/create' },
 ];
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard','login'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,14 +43,42 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
+    if (e.target.textContent === "Logout") {
+      console.log("Logout");
+    } else if (e.target.textContent === "Login") {
+      // Handle login here
+    }
     setAnchorElUser(null);
   };
 
   const handleRoute = (link) => {
-    navigate(link);
+    if(isAuthenticated){
+      navigate(link);
+    }
+    else{
+      navigate("/")
+      alert("Please Login to Add new Blog")
+    }
+    // navigate(link);
     handleCloseNavMenu();
   };
+
+
+//login log out
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  ////////////
+let p=''
+  //image shown p
+  if (isAuthenticated){
+    p=user.image
+    settings[3]=user.name
+  }
+  else{
+    p=logo
+  }
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#192841' }}>
@@ -59,7 +90,7 @@ const Navbar = () => {
               aria-label="menu"
               onClick={handleOpenNavMenu}
               color="inherit"
-              sx={{ display: { xs: 'block', md: 'none' } }}
+              sx={{ display: 'block', md: 'none' }}
             >
               <MenuIcon />
             </IconButton>
@@ -81,13 +112,13 @@ const Navbar = () => {
             }}
           >
             <img
-              src={logo} // Change to the path of your logo image
+              src={logo}
               alt="My Blog Logo"
               style={{ height: '40px', marginRight: '8px' }}
             />
             BATTLE OF POLITICS
           </Typography>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {pages.map((page) => (
               <motion.div key={page.name} whileHover={{ scale: 1.1 }}>
                 <Button
@@ -98,13 +129,40 @@ const Navbar = () => {
                 </Button>
               </motion.div>
             ))}
+            <motion.div whileHover={{ scale: 1.1 }}>
+
+              {/* login logout button ...................*/}
+                 
+                 {isAuthenticated ?
+                 <Button
+                 onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                 sx={{ mx: 2, color: 'white', fontWeight: 600 }}
+               >
+                 Logout
+               </Button>:
+              <Button
+                onClick={() => loginWithRedirect()}
+                sx={{ mx: 2, color: 'white', fontWeight: 600 }}
+              >
+                Login
+              </Button>
+                 
+                 }
+
+
+              
+
+
+
+            {/* logout end......................... */}
+            </motion.div>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   alt="User Avatar"
-                  src="/path/to/avatar.jpg" // Change to the path of your avatar image
+                  src={p} // Change to the path of your avatar image
                 />
               </IconButton>
             </Tooltip>
@@ -140,6 +198,177 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+// import React from 'react';
+// import { useNavigate, Link } from 'react-router-dom';
+// import AppBar from '@mui/material/AppBar';
+// import Box from '@mui/material/Box';
+// import Toolbar from '@mui/material/Toolbar';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import Menu from '@mui/material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import Container from '@mui/material/Container';
+// import Avatar from '@mui/material/Avatar';
+// import Button from '@mui/material/Button';
+// import Tooltip from '@mui/material/Tooltip';
+// import MenuItem from '@mui/material/MenuItem';
+// import { motion } from 'framer-motion';
+// //imge
+// import logo from './logo5.png'
+
+
+// import { useAuth0 } from "@auth0/auth0-react";
+
+// const pages = [
+//   { name: 'Home', link: '/' },
+//   { name: 'About', link: '/about' },
+//   { name: 'New Blog', link: '/create' },
+// ];
+
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout','Login'];
+
+// const Navbar = () => {
+//   const [anchorElNav, setAnchorElNav] = React.useState(null);
+//   const [anchorElUser, setAnchorElUser] = React.useState(null);
+//   const navigate = useNavigate();
+
+//   const handleOpenNavMenu = (event) => {
+//     setAnchorElNav(event.currentTarget);
+//   };
+
+//   const handleOpenUserMenu = (event) => {
+//     setAnchorElUser(event.currentTarget);
+//   };
+
+//   const handleCloseNavMenu = () => {
+//     setAnchorElNav(null);
+//   };
+
+//   const handleCloseUserMenu = (e) => {
+//     if(e.target.textContent=="Logout"){
+//       console.log("Logout")
+//     }
+
+//     else if (e.target.textContent=="Login"){
+
+//     }
+//     setAnchorElUser(null);
+
+//   };
+
+//   const handleRoute = (link) => {
+//     navigate(link);
+//     handleCloseNavMenu();
+//   };
+
+//   const { loginWithRedirect } = useAuth0();
+ 
+//   return (
+//     <AppBar position="static" sx={{ bgcolor: '#192841',width:"100" }}>
+//       <Container maxWidth="xl">
+//         <Toolbar disableGutters>
+//           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+//             <IconButton
+//               size="large"
+//               aria-label="menu"
+//               onClick={handleOpenNavMenu}
+//               color="inherit"
+//               sx={{ display: { xs: 'block', md: 'none' } }}
+//             >
+//               <MenuIcon />
+
+              
+
+
+//             </IconButton>
+//           </motion.div>
+//           <Typography
+//             variant="h6"
+//             noWrap
+//             component={Link}
+//             to="/"
+//             sx={{
+//               flexGrow: 1,
+//               fontFamily: 'Monospace',
+//               fontWeight: 700,
+//               letterSpacing: '.3rem',
+//               color: '#FFD700',
+//               textDecoration: 'none',
+//               display: 'flex',
+//               alignItems: 'center',
+//             }}
+//           >
+//             <img
+//               src={logo} // Change to the path of your logo image
+//               alt="My Blog Logo"
+//               style={{ height: '40px', marginRight: '8px' }}
+//             />
+//             BATTLE OF POLITICS
+//           </Typography>
+//           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+//             {pages.map((page) => (
+//               <motion.div key={page.name} whileHover={{ scale: 1.1 }}>
+//                 <Button
+//                   onClick={() => handleRoute(page.link)}
+//                   sx={{ mx: 2, color: 'white', fontWeight: 600 }}
+//                 >
+//                   {page.name}
+//                 </Button>
+//               </motion.div>
+//             ))}
+//             <motion.div whileHover={{ scale: 1.1 }}>
+//                 <Button
+//                   onClick={() => loginWithRedirect()}
+//                   sx={{ mx: 2, color: 'white', fontWeight: 600 }}
+//                 >
+//                   Login
+//                 </Button>
+//               </motion.div>
+//           </Box>
+//           <Box sx={{ flexGrow: 0 }}>
+//             <Tooltip title="Open settings">
+//               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+//                 <Avatar
+//                   alt="User Avatar"
+//                   src="/path/to/avatar.jpg" // Change to the path of your avatar image
+//                 />
+//               </IconButton>
+//             </Tooltip>
+//             <Menu
+//               sx={{ mt: '45px' }}
+//               id="menu-appbar"
+//               anchorEl={anchorElUser}
+//               anchorOrigin={{
+//                 vertical: 'top',
+//                 horizontal: 'right',
+//               }}
+//               keepMounted
+//               transformOrigin={{
+//                 vertical: 'top',
+//                 horizontal: 'right',
+//               }}
+//               open={Boolean(anchorElUser)}
+//               onClose={handleCloseUserMenu}
+//             >
+//               {settings.map((setting) => (
+//                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
+//                   <Typography textAlign="center" color="textSecondary">
+//                     {setting}
+//                   </Typography>
+//                 </MenuItem>
+//               ))}
+//             </Menu>
+//           </Box>
+//         </Toolbar>
+//       </Container>
+//     </AppBar>
+//   );
+// };
+
+// export default Navbar;
 
 
 

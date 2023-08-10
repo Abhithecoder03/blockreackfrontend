@@ -18,7 +18,7 @@ const Headers = () => {
         
       ];
     return ( 
-        <div className='header'>
+        <div className='headers'>
         <SimpleImageSlider
           
           width="100%"

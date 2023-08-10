@@ -9,11 +9,12 @@ function Main(props) {
   const { posts, title } = props;
 
   return (
-    <Grid
+    <Grid className='header'
       item
       xs={12}
       md={8}
-      sx={{
+      sx={{ width:"100%",
+      marginRight:"2rem",
         '& .markdown': {
           py: 3,
         },

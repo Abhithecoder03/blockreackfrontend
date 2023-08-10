@@ -63,9 +63,10 @@
 
 
 
+import { useNavigate } from 'react-router-dom';
 
-
-
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 
 import { Link } from 'react-router-dom';
@@ -76,6 +77,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function Bloglist(props) {
@@ -85,7 +87,53 @@ export default function Bloglist(props) {
     setBlogs(props.propsV);
   }, [props.propsV]);
 
+
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const { loginWithRedirect } = useAuth0();
+
+  
+  
+  const nav=useNavigate()
+  const handlepopup=(id)=>{
+    console.log("blod id",id)
+    if(!isAuthenticated){
+    
+        alert("please login")
+        nav("/")
+   
+    }
+    else{
+      setTimeout(() => {
+        nav(`/blogs/`+id)
+      },0);
+      
+    }
+
+  }
+
+  const editnav=(id)=>{
+    console.log("blod id",id)
+    if(!isAuthenticated){
+    
+        alert("please login")
+        // nav("/")
+        loginWithRedirect()
+   
+    }
+    else{
+      setTimeout(() => {
+        nav(`/update/`+id)
+      },0);
+      
+    }
+
+  }
+  
+  
+
   return (
+    
     <div className="blog-list">
       {blogs.map((blog, index) => (
         <Card
@@ -129,9 +177,12 @@ export default function Bloglist(props) {
               size="small"
               color="primary"
               component={Link}
-              to={`/blogs/${blog._id}`}
+              onClick={()=>handlepopup(blog._id)}
+              // to={`/blogs/${blog._id}`}
+              
               sx={{ backgroundColor: '#3f51b5', '&:hover': { backgroundColor: '#283593' } }}
-            >
+            > 
+           
               View
             </Button>
             <Button
@@ -139,7 +190,8 @@ export default function Bloglist(props) {
               variant="contained"
               color="secondary"
               component={Link}
-              to={`/update/${blog._id}`}
+              onClick={()=>editnav(blog._id)}
+              // to={`/update/${blog._id}`}
               sx={{ backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#d32f2f' } }}
             >
               Edit

@@ -12,7 +12,7 @@ body{
 .home{
   padding-top: 10px;
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 15px;
   
   font-size:1.5em;
   color: #fff;
@@ -262,3 +262,7 @@ nav a:nth-child(4):hover ~ #indicator {
   background-color: rgba(98, 145, 60, 0.7);
 }
 
+.header{
+  margin: 20px;
+  padding-right: 20px;
+}
