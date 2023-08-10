@@ -1,0 +1,264 @@
+
+body{
+  /* background:url("../public/3.jpg"); */
+  
+  
+  font-family: 'Oswald', sans-serif;
+  justify-content: space-between;
+}
+
+
+
+.home{
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  
+  font-size:1.5em;
+  color: #fff;
+  
+  
+  gap: 105px;
+}
+.home .title{
+  color: brown;
+  
+  
+}
+.auth{
+  padding-left: 35px;
+}
+.create{
+  padding-top: 55px;
+  font-size: large;
+  color: black;
+}
+
+
+
+
+textarea{
+  width: 100%;
+   height: 10rem;
+}
+
+
+
+.card{
+  display: flex;
+  flex-direction: row;
+  
+  flex-wrap: wrap;
+  
+  gap: 3.5em;
+  justify-content: center;
+}
+
+.HeadingD{
+  text-align: center;
+  color: chocolate;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: xx-large;
+}
+
+
+.img{
+  /* background-image: url(../public/b.jpg); */
+  width: 100%;
+  height: 40rem;
+  align-items: center;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .header{
+    width:400px
+  }
+}
+
+
+nav {
+  position: absolute;
+  margin-top:20;
+  right: 0;
+  left: 0;
+  width: 319px;
+  display: table;
+  margin: 0 auto;
+  transform: translateY(-50%);
+  padding-top: 7rem;
+  
+}
+
+nav a {
+  position: relative;
+  width: 33.333%;
+  display: table-cell;
+  text-align: center;
+  color: #1b1b1b;
+  text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  padding: 10px 20px;
+  transition: 0.2s ease color;
+  
+}
+
+nav a:before,
+nav a:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 0.2s ease transform;
+}
+
+nav a:before {
+  top: 10px;
+  left: 10px;
+  width: 6px;
+  height: 6px;
+}
+
+nav a:after {
+  top: 15px;
+  left: 18px;
+  width: 4px;
+  height: 4px;
+}
+
+nav a:nth-child(1):before {
+  background-color: yellow;
+}
+
+nav a:nth-child(1):after {
+  background-color: red;
+}
+
+nav a:nth-child(2):before {
+  background-color: #00e2ff;
+}
+
+nav a:nth-child(2):after {
+  background-color: #89ff00;
+}
+
+nav a:nth-child(3):before {
+  background-color: purple;
+}
+
+nav a:nth-child(3):after {
+  background-color: palevioletred;
+}
+
+#indicator {
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+  width: 30px;
+  height: 3px;
+  background-color: #651735;
+  border-radius: 5px;
+  transition: 0.2s ease left;
+}
+
+nav a:hover {
+  color: #62184d;
+}
+
+nav a:hover:before,
+nav a:hover:after {
+  transform: scale(1);
+}
+
+nav a:nth-child(1):hover ~ #indicator {
+  background: linear-gradient(130deg, yellow, red);
+}
+
+nav a:nth-child(2):hover ~ #indicator {
+  left: 34%;
+  background: linear-gradient(130deg, #00e2ff, #89ff00);
+}
+
+nav a:nth-child(3):hover ~ #indicator {
+  left: 63%;
+  background: linear-gradient(130deg, purple, palevioletred);
+}
+nav a:nth-child(4):hover ~ #indicator {
+  left: 90%;
+  background: linear-gradient(130deg, rgb(32, 128, 0), rgb(194, 76, 90));
+}
+
+.homebloglist{
+   margin-top: 6rem;
+}
+
+
+
+/* new */
+
+
+/* BlogList.css */
+.blog-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.blog-card {
+  background-color: #7d3838;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px;
+  width: 300px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
+
+.blog-card img {
+  object-fit: cover;
+  height: 200px;
+}
+
+.blog-card .MuiCardContent-root {
+  padding: 16px;
+}
+
+.blog-card .MuiTypography-h6 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.blog-card .blog-body {
+  max-height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #777;
+}
+
+.blog-card .MuiCardActions-root {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.blog-card .MuiButton-containedPrimary,
+.blog-card .MuiButton-containedSecondary {
+  background-color: #192841;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.blog-card .MuiButton-containedPrimary:hover,
+.blog-card .MuiButton-containedSecondary:hover {
+  background-color: rgba(98, 145, 60, 0.7);
+}
+
